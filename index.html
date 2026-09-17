@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>3DS Anatomical Vision</title>
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="css/camera.css">
+    <link rel="stylesheet" href="css/anatomy.css">
+    <link rel="stylesheet" href="css/responsive.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <header class="top-nav">
+        <div class="logo">3DS Anatomical Vision</div>
+        <nav class="nav-links">
+            <button id="nav-live" class="active">Live Anatomy</button>
+            <button id="nav-atlas">Anatomy Atlas</button>
+            <button id="nav-quiz">Quiz Mode</button>
+        </nav>
+        <div class="settings">
+            <button id="toggle-camera-btn">Start Camera</button>
+        </div>
+    </header>
+
+    <main class="app-container">
+        <!-- LEFT: Camera & AI Overlay -->
+        <section class="camera-section">
+            <div class="video-container" id="video-container">
+                <video id="webcam" autoplay playsinline></video>
+                <canvas id="output_canvas"></canvas>
+                <div id="loading-spinner" class="spinner hidden">Loading AI Models...</div>
+            </div>
+            
+            <div class="camera-controls">
+                <button id="switch-camera-btn">Switch Camera</button>
+                <div class="layer-toggles">
+                    <label><input type="checkbox" id="show-pose" checked> Pose</label>
+                    <label><input type="checkbox" id="show-face" checked> Face</label>
+                </div>
+            </div>
+        </section>
+
+        <!-- RIGHT: Anatomy Info Panel -->
+        <section class="anatomy-section">
+            <div class="anatomy-panel" id="anatomy-panel">
+                <div class="placeholder-content">
+                    <p>Point the camera at a person and click on a detected region.</p>
+                </div>
+                
+                <div class="anatomy-content hidden" id="anatomy-content">
+                    <div class="anatomy-header">
+                        <span class="anatomy-category" id="info-category">Bone</span>
+                        <h2 id="info-name-tr">Humerus</h2>
+                        <h3 id="info-name-latin" class="latin-name">Humerus</h3>
+                    </div>
+                    
+                    <div class="atlas-image-container">
+                        <img id="info-atlas-image" src="" alt="Atlas Image" onerror="this.src=''; this.classList.add('error'); document.getElementById('image-error-msg').style.display='block';">
+                        <div id="image-error-msg" class="image-error hidden">Atlas image not available.</div>
+                    </div>
+                    
+                    <div class="anatomy-details">
+                        <div class="detail-group">
+                            <h4>Description</h4>
+                            <p id="info-description">Description text here.</p>
+                        </div>
+                        <div class="detail-group">
+                            <h4>Location</h4>
+                            <p id="info-location">Location text here.</p>
+                        </div>
+                        <div class="detail-group">
+                            <h4>Function</h4>
+                            <p id="info-function">Function text here.</p>
+                        </div>
+                        <div class="detail-group">
+                            <h4>Clinical Info</h4>
+                            <p id="info-clinical">Clinical info here.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ATLAS VIEW: Grid of all anatomical parts -->
+        <section class="atlas-view hidden" id="atlas-view">
+            <div class="atlas-header">
+                <h2>Anatomy Atlas</h2>
+                <p>Browse detailed anatomical structures and information.</p>
+            </div>
+            <div class="atlas-grid" id="atlas-grid">
+                <!-- Cards will be populated by atlas.js -->
+            </div>
+        </section>
+    </main>
+
+    <!-- ATLAS MODAL -->
+    <div id="atlas-modal" class="modal-overlay hidden">
+        <div class="modal-content">
+            <button id="close-modal-btn" class="close-modal">&times;</button>
+            <div class="anatomy-content" id="modal-anatomy-content">
+                <div class="anatomy-header">
+                    <span class="anatomy-category" id="modal-category">Category</span>
+                    <h2 id="modal-name-tr">Name TR</h2>
+                    <h3 id="modal-name-latin" class="latin-name">Name Latin</h3>
+                </div>
+                
+                <div class="atlas-image-container">
+                    <img id="modal-atlas-image" src="" alt="Atlas Image" onerror="this.src=''; this.classList.add('error'); document.getElementById('modal-image-error').style.display='block';">
+                    <div id="modal-image-error" class="image-error hidden">Atlas image not available.</div>
+                </div>
+                
+                <div class="anatomy-details">
+                    <div class="detail-group">
+                        <h4>Description</h4>
+                        <p id="modal-description">Description text here.</p>
+                    </div>
+                    <div class="detail-group">
+                        <h4>Location</h4>
+                        <p id="modal-location">Location text here.</p>
+                    </div>
+                    <div class="detail-group">
+                        <h4>Function</h4>
+                        <p id="modal-function">Function text here.</p>
+                    </div>
+                    <div class="detail-group">
+                        <h4>Clinical Info</h4>
+                        <p id="modal-clinical">Clinical info here.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script type="module" src="js/app.js?v=2"></script>
+</body>
+</html>

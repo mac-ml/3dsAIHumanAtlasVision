@@ -1,0 +1,17 @@
+@media (max-width: 768px) {
+    .app-container {
+        flex-direction: column;
+    }
+
+    .camera-section {
+        flex: unset;
+        height: 60vh;
+    }
+
+    .anatomy-section {
+        flex: 1;
+        max-width: 100%;
+        border-left: none;
+        border-top: 1px solid var(--border-color);
+    }
+}
